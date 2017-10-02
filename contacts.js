@@ -1,82 +1,49 @@
 const contactStorage = [] // here is where you'll store your contacts
 
-/*
+/**
  * addContact
  *
- *  Arguments:
- *    firstName: String (required)
- *    lastName: String (required)
- *    email: String (required)
- *
- *  Example Usage:
- *    addContact('Betty', 'Holberton', 'betty.holberton@eniac.edu')
- *  @param firstName {string}
- *  @return {undefined}
+ *  @param {string} firstName - first name of the contact to add
+ *  @param {string} lastName - last name of the contact to add
+ *  @param {email} email - email address of the contact to add
+ *  @return undefined
  */
 const addContact = function (firstName, lastName, email) {
   contactStorage.push({ name: `${firstName} ${lastName}`, email })
 }
 
-/*
+/**
  * addContacts
  *
- *  Arguments:
- *    contacts: Array of contacts (required)
- *
- *  Example Usage:
- *    addContacts([
- *      {
- *        first_name: 'Tanny',
- *        last_name: 'Vibert',
- *        email: 'tvibert0@illinois.edu',
- *      },
- *      {
- *        first_name: 'Tova',
- *        last_name: 'Myall',
- *        email: 'tmyall1@instagram.com',
- *      }
- *    ])
- *
- *  Returns:
- *    undefined
+ * @param {array} contacts - an array of objects, each with its own first_name, last_name, and email
+ * @return undefined
  */
 const addContacts = function (contacts) {
   console.log('Loading contact data...')
-  contacts.forEach(contact =>
-    addContact(contact.first_name, contact.last_name, contact.email)
-  )
+  contacts.forEach(contact => addContact(contact.first_name, contact.last_name, contact.email))
   console.log('...Finished loading contact data.')
 }
 
-
-/*
+/**
  * printContacts
  *
- *  Arguments:
- *    none
- *
- *  Example Usage:
- *    addContacts()
+ * @return undefined
  *
  *  Note: output goes to STDOUT using console.log
- *
- *  Returns:
- *    undefined
  */
 const printContacts = function () {
-  const maxNameLength = 1 + contactStorage.reduce((a, contact) => {
-    return a > contact.name.length ? a : contact.name.length
-  }, 9)
-  const maxEmailLength = 1 + contactStorage.reduce((a, contact) => {
-    return a > contact.email.length ? a : contact.email.length
-  }, 5)
+  const maxNameLength = 1 + contactStorage.reduce((a, contact) => (
+    a > contact.name.length ? a : contact.name.length
+  ), 9)
+  const maxEmailLength = 1 + contactStorage.reduce((a, contact) => (
+    a > contact.email.length ? a : contact.email.length
+  ), 13)
   const line = `|${'-'.repeat(maxNameLength + 1)}+${'-'.repeat(maxEmailLength + 1)}|`
-
-  console.log(`All Contacts:\n${line}\n| Full Name${' '.repeat(maxNameLength - 9)}| Email Address${' '.repeat(maxEmailLength - 13)}|\n${line}`)
-  contactStorage.sort((a, b) => { return a.name > b.name ? 1 : -1 })
-  contactStorage.forEach(contact =>
-    console.log(`| ${contact.name}${' '.repeat(maxNameLength - contact.name.length)}| ${contact.email}${' '.repeat(maxEmailLength - contact.email.length)}|`)
-  )
+  console.log(
+    `All Contacts:\n${line}\n| Full Name${' '.repeat(maxNameLength - 9)}| Email Address${' '.repeat(maxEmailLength - 13)}|\n${line}`)
+  contactStorage.sort((a, b) => (a.name > b.name ? 1 : -1))
+  contactStorage.forEach(contact => console.log(
+    `| ${contact.name}${' '.repeat(maxNameLength - contact.name.length)}| ${contact.email}${' '.repeat(maxEmailLength - contact.email.length)}|`))
   console.log(line)
 }
 
